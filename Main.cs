@@ -1,13 +1,14 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.InteropServices;
+using static GsDAutoClicker.Program;
 
 namespace GsDAutoClicker
 {
     public partial class Main : Form
     {
-        static Thread clicker = new(Clicker);
+        static Thread clicker = new(PRG.Clicker);
         private static ManualResetEvent clickerPauseEvent = new(true);
-        private Keys hotkey = Keys.None;
+        public static Keys hotkey = Keys.None;
         private Point? clickLocation = null;
 
         [DllImport("user32.dll")]
@@ -21,7 +22,7 @@ namespace GsDAutoClicker
             InitializeComponent();
         }
 
-        public static void Clicker()
+        public void Clicker()
         {
             while (true)
             {
@@ -34,11 +35,11 @@ namespace GsDAutoClicker
 
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
-                Thread.Sleep(GetInterval());
+                Thread.Sleep( GetInterval() );
             }
         }
 
-        private static int GetInterval()
+        private int GetInterval()
         {
             // Calculate interval based on numericUpDown1-4 values
             return (int)(numericUpDown1.Value * 3600000 + numericUpDown2.Value * 60000 +
@@ -87,15 +88,17 @@ namespace GsDAutoClicker
 
         private void button4_Click(object sender, EventArgs e)
         {
-            using (var locationPicker = new LocationPicker())
-            {
-                if (locationPicker.ShowDialog() == DialogResult.OK)
-                {
-                    clickLocation = locationPicker.SelectedLocation;
-                    textBox1.Text = clickLocation.Value.X.ToString();
-                    textBox2.Text = clickLocation.Value.Y.ToString();
-                }
-            }
+            // TODO - Implement location picker before this but not yet
+
+            //using (var locationPicker = new LocationPicker())
+            //{
+            //    if (locationPicker.ShowDialog() == DialogResult.OK)
+            //    {
+            //        clickLocation = locationPicker.SelectedLocation;
+            //        textBox1.Text = clickLocation.Value.X.ToString();
+            //        textBox2.Text = clickLocation.Value.Y.ToString();
+            //    }
+            //}
         }
 
         protected override bool ProcessCmdKey( ref Message msg, Keys keyData )
