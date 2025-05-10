@@ -147,6 +147,7 @@
             // button2
             // 
             button2.Dock = DockStyle.Fill;
+            button2.Enabled = false;
             button2.Location = new Point( 167, 3 );
             button2.Name = "button2";
             button2.Size = new Size( 159, 43 );
@@ -162,7 +163,7 @@
             button3.Name = "button3";
             button3.Size = new Size( 158, 43 );
             button3.TabIndex = 2;
-            button3.Text = "Set Hotkey";
+            button3.Text = "Set Hotkey (None)";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
@@ -230,6 +231,7 @@
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Location = new Point( 3, 3 );
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size( 61, 19 );
@@ -246,6 +248,7 @@
             numericUpDown5.Name = "numericUpDown5";
             numericUpDown5.Size = new Size( 66, 23 );
             numericUpDown5.TabIndex = 1;
+            numericUpDown5.Value = new decimal( new int[] { 1, 0, 0, 0 } );
             // 
             // radioButton2
             // 
@@ -408,6 +411,7 @@
             numericUpDown3.Name = "numericUpDown3";
             numericUpDown3.Size = new Size( 75, 23 );
             numericUpDown3.TabIndex = 2;
+            numericUpDown3.Value = new decimal( new int[] { 1, 0, 0, 0 } );
             // 
             // numericUpDown4
             // 
@@ -416,6 +420,7 @@
             numericUpDown4.Name = "numericUpDown4";
             numericUpDown4.Size = new Size( 75, 23 );
             numericUpDown4.TabIndex = 3;
+            numericUpDown4.Value = new decimal( new int[] { 100, 0, 0, 0 } );
             // 
             // label2
             // 
@@ -607,6 +612,7 @@
             Name = "Main";
             ShowIcon = false;
             Text = "Auto Clicker";
+            FormClosing += Main_FormClosing;
             Load += Main_Load;
             tabs.ResumeLayout( false );
             tabPage1.ResumeLayout( false );

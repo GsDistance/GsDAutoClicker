@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise false.</param>
         protected override void Dispose( bool disposing )
         {
             if (disposing && (components != null))
@@ -61,7 +61,7 @@
             button1.Name = "button1";
             button1.Size = new Size( 101, 43 );
             button1.TabIndex = 0;
-            button1.Text = "Start / Stop";
+            button1.Text = "Start";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -90,7 +90,6 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.None;
-            textBox1.Enabled = false;
             textBox1.Location = new Point( 155, 25 );
             textBox1.Name = "textBox1";
             textBox1.Size = new Size( 100, 23 );
