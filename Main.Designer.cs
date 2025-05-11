@@ -10,7 +10,7 @@
         /// <summary>
         ///  Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise.</param>
         protected override void Dispose( bool disposing )
         {
             if (disposing && (components != null))
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tabs = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel8 = new TableLayoutPanel();
@@ -71,6 +72,14 @@
             label11 = new Label();
             label12 = new Label();
             tabPage3 = new TabPage();
+            tabPage4 = new TabPage();
+            tableLayoutPanel11 = new TableLayoutPanel();
+            label13 = new Label();
+            tabPage5 = new TabPage();
+            tableLayoutPanel12 = new TableLayoutPanel();
+            label14 = new Label();
+            label15 = new Label();
+            timer1 = new System.Windows.Forms.Timer( components );
             tabs.SuspendLayout();
             tabPage1.SuspendLayout();
             tableLayoutPanel8.SuspendLayout();
@@ -89,6 +98,10 @@
             tabPage2.SuspendLayout();
             tableLayoutPanel9.SuspendLayout();
             tableLayoutPanel10.SuspendLayout();
+            tabPage4.SuspendLayout();
+            tableLayoutPanel11.SuspendLayout();
+            tabPage5.SuspendLayout();
+            tableLayoutPanel12.SuspendLayout();
             SuspendLayout();
             // 
             // tabs
@@ -96,6 +109,8 @@
             tabs.Controls.Add( tabPage1 );
             tabs.Controls.Add( tabPage2 );
             tabs.Controls.Add( tabPage3 );
+            tabs.Controls.Add( tabPage4 );
+            tabs.Controls.Add( tabPage5 );
             tabs.Dock = DockStyle.Fill;
             tabs.Location = new Point( 0, 0 );
             tabs.Name = "tabs";
@@ -525,6 +540,7 @@
             // 
             radioButton3.Anchor = AnchorStyles.None;
             radioButton3.AutoSize = true;
+            radioButton3.Checked = true;
             radioButton3.Location = new Point( 7, 15 );
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size( 60, 19 );
@@ -532,6 +548,7 @@
             radioButton3.TabStop = true;
             radioButton3.Text = "Cursor";
             radioButton3.UseVisualStyleBackColor = true;
+            radioButton3.CheckedChanged += radioButton3_CheckedChanged;
             // 
             // radioButton4
             // 
@@ -541,8 +558,8 @@
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size( 14, 13 );
             radioButton4.TabIndex = 1;
-            radioButton4.TabStop = true;
             radioButton4.UseVisualStyleBackColor = true;
+            radioButton4.CheckedChanged += radioButton4_CheckedChanged;
             // 
             // button4
             // 
@@ -562,6 +579,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size( 38, 23 );
             textBox1.TabIndex = 3;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
@@ -570,6 +588,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size( 41, 23 );
             textBox2.TabIndex = 4;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // label11
             // 
@@ -599,6 +618,96 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Settings";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add( tableLayoutPanel11 );
+            tabPage4.Location = new Point( 4, 24 );
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding( 3 );
+            tabPage4.Size = new Size( 345, 306 );
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Statistics";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel11
+            // 
+            tableLayoutPanel11.ColumnCount = 2;
+            tableLayoutPanel11.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 30F ) );
+            tableLayoutPanel11.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 70F ) );
+            tableLayoutPanel11.Controls.Add( label13, 0, 0 );
+            tableLayoutPanel11.Dock = DockStyle.Fill;
+            tableLayoutPanel11.Location = new Point( 3, 3 );
+            tableLayoutPanel11.Name = "tableLayoutPanel11";
+            tableLayoutPanel11.RowCount = 2;
+            tableLayoutPanel11.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel11.RowStyles.Add( new RowStyle( SizeType.Percent, 90F ) );
+            tableLayoutPanel11.Size = new Size( 339, 300 );
+            tableLayoutPanel11.TabIndex = 0;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.None;
+            label13.AutoSize = true;
+            label13.Location = new Point( 11, 7 );
+            label13.Name = "label13";
+            label13.Size = new Size( 79, 15 );
+            label13.TabIndex = 0;
+            label13.Text = "Click count: 0";
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add( tableLayoutPanel12 );
+            tabPage5.Location = new Point( 4, 24 );
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding( 3 );
+            tabPage5.Size = new Size( 345, 306 );
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "About";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel12
+            // 
+            tableLayoutPanel12.ColumnCount = 2;
+            tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 30F ) );
+            tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 70F ) );
+            tableLayoutPanel12.Controls.Add( label14, 0, 0 );
+            tableLayoutPanel12.Controls.Add( label15, 0, 1 );
+            tableLayoutPanel12.Dock = DockStyle.Fill;
+            tableLayoutPanel12.Location = new Point( 3, 3 );
+            tableLayoutPanel12.Name = "tableLayoutPanel12";
+            tableLayoutPanel12.RowCount = 3;
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 80F ) );
+            tableLayoutPanel12.Size = new Size( 339, 300 );
+            tableLayoutPanel12.TabIndex = 0;
+            // 
+            // label14
+            // 
+            label14.Anchor = AnchorStyles.None;
+            label14.AutoSize = true;
+            label14.Location = new Point( 28, 7 );
+            label14.Name = "label14";
+            label14.Size = new Size( 45, 15 );
+            label14.TabIndex = 0;
+            label14.Text = "Version";
+            // 
+            // label15
+            // 
+            label15.Anchor = AnchorStyles.None;
+            label15.AutoSize = true;
+            label15.Location = new Point( 28, 37 );
+            label15.Name = "label15";
+            label15.Size = new Size( 44, 15 );
+            label15.TabIndex = 1;
+            label15.Text = "Author";
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // Main
             // 
@@ -641,6 +750,12 @@
             tableLayoutPanel9.PerformLayout();
             tableLayoutPanel10.ResumeLayout( false );
             tableLayoutPanel10.PerformLayout();
+            tabPage4.ResumeLayout( false );
+            tableLayoutPanel11.ResumeLayout( false );
+            tableLayoutPanel11.PerformLayout();
+            tabPage5.ResumeLayout( false );
+            tableLayoutPanel12.ResumeLayout( false );
+            tableLayoutPanel12.PerformLayout();
             ResumeLayout( false );
         }
 
@@ -689,5 +804,13 @@
         private TextBox textBox2;
         private Label label11;
         private Label label12;
+        private TabPage tabPage4;
+        private TableLayoutPanel tableLayoutPanel11;
+        private Label label13;
+        private System.Windows.Forms.Timer timer1;
+        private TabPage tabPage5;
+        private TableLayoutPanel tableLayoutPanel12;
+        private Label label14;
+        private Label label15;
     }
 }
