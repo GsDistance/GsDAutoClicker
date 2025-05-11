@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static GsDAutoClicker.Program;
 
 namespace GsDAutoClicker
 {
@@ -38,6 +39,7 @@ namespace GsDAutoClicker
         {
             SelectedHotkey = Main.hotkey;
             textBox1.Text = SelectedHotkey.ToString();
+            PRG.logString( "Hotkey selector opened." );
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -48,6 +50,7 @@ namespace GsDAutoClicker
 
         private void button3_Click(object sender, EventArgs e)
         {
+            PRG.logString( "Hotkey selector closed." );
             DialogResult = DialogResult.Cancel;
             Close();
         }

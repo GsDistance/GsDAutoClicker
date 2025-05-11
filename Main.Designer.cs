@@ -72,6 +72,9 @@
             label11 = new Label();
             label12 = new Label();
             tabPage3 = new TabPage();
+            tableLayoutPanel13 = new TableLayoutPanel();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
             tabPage4 = new TabPage();
             tableLayoutPanel11 = new TableLayoutPanel();
             label13 = new Label();
@@ -79,6 +82,7 @@
             tableLayoutPanel12 = new TableLayoutPanel();
             label14 = new Label();
             label15 = new Label();
+            label16 = new Label();
             tabPage6 = new TabPage();
             logs = new RichTextBox();
             timer1 = new System.Windows.Forms.Timer( components );
@@ -100,6 +104,8 @@
             tabPage2.SuspendLayout();
             tableLayoutPanel9.SuspendLayout();
             tableLayoutPanel10.SuspendLayout();
+            tabPage3.SuspendLayout();
+            tableLayoutPanel13.SuspendLayout();
             tabPage4.SuspendLayout();
             tableLayoutPanel11.SuspendLayout();
             tabPage5.SuspendLayout();
@@ -621,12 +627,57 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add( tableLayoutPanel13 );
             tabPage3.Location = new Point( 4, 24 );
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size( 345, 306 );
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Settings";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel13
+            // 
+            tableLayoutPanel13.ColumnCount = 1;
+            tableLayoutPanel13.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 100F ) );
+            tableLayoutPanel13.Controls.Add( checkBox1, 0, 0 );
+            tableLayoutPanel13.Controls.Add( checkBox2, 0, 1 );
+            tableLayoutPanel13.Dock = DockStyle.Fill;
+            tableLayoutPanel13.Location = new Point( 0, 0 );
+            tableLayoutPanel13.Name = "tableLayoutPanel13";
+            tableLayoutPanel13.RowCount = 3;
+            tableLayoutPanel13.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel13.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel13.RowStyles.Add( new RowStyle( SizeType.Percent, 80F ) );
+            tableLayoutPanel13.Size = new Size( 345, 306 );
+            tableLayoutPanel13.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            checkBox1.Anchor = AnchorStyles.None;
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Location = new Point( 96, 5 );
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size( 152, 19 );
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "Interval set to 0 warning";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // checkBox2
+            // 
+            checkBox2.Anchor = AnchorStyles.None;
+            checkBox2.AutoSize = true;
+            checkBox2.Checked = true;
+            checkBox2.CheckState = CheckState.Checked;
+            checkBox2.Location = new Point( 64, 35 );
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size( 216, 19 );
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "Set location with no hotkey warning";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox2_CheckedChanged;
             // 
             // tabPage4
             // 
@@ -678,16 +729,24 @@
             // tableLayoutPanel12
             // 
             tableLayoutPanel12.ColumnCount = 1;
-            tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 30F ) );
+            tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 100F ) );
             tableLayoutPanel12.Controls.Add( label14, 0, 0 );
             tableLayoutPanel12.Controls.Add( label15, 0, 1 );
+            tableLayoutPanel12.Controls.Add( label16, 0, 2 );
             tableLayoutPanel12.Dock = DockStyle.Fill;
             tableLayoutPanel12.Location = new Point( 3, 3 );
             tableLayoutPanel12.Name = "tableLayoutPanel12";
-            tableLayoutPanel12.RowCount = 3;
+            tableLayoutPanel12.RowCount = 10;
             tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
             tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
-            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 80F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
+            tableLayoutPanel12.RowStyles.Add( new RowStyle( SizeType.Percent, 10F ) );
             tableLayoutPanel12.Size = new Size( 339, 300 );
             tableLayoutPanel12.TabIndex = 0;
             // 
@@ -705,11 +764,21 @@
             // 
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
-            label15.Location = new Point( 147, 37 );
+            label15.Location = new Point( 140, 37 );
             label15.Name = "label15";
-            label15.Size = new Size( 44, 15 );
+            label15.Size = new Size( 59, 15 );
             label15.TabIndex = 1;
-            label15.Text = "Author";
+            label15.Text = "Company";
+            // 
+            // label16
+            // 
+            label16.Anchor = AnchorStyles.None;
+            label16.AutoSize = true;
+            label16.Location = new Point( 134, 67 );
+            label16.Name = "label16";
+            label16.Size = new Size( 70, 15 );
+            label16.TabIndex = 2;
+            label16.Text = "App Version";
             // 
             // tabPage6
             // 
@@ -730,7 +799,7 @@
             logs.ReadOnly = true;
             logs.Size = new Size( 339, 300 );
             logs.TabIndex = 0;
-            logs.Text = "Init";
+            logs.Text = "";
             // 
             // timer1
             // 
@@ -779,6 +848,9 @@
             tableLayoutPanel9.PerformLayout();
             tableLayoutPanel10.ResumeLayout( false );
             tableLayoutPanel10.PerformLayout();
+            tabPage3.ResumeLayout( false );
+            tableLayoutPanel13.ResumeLayout( false );
+            tableLayoutPanel13.PerformLayout();
             tabPage4.ResumeLayout( false );
             tableLayoutPanel11.ResumeLayout( false );
             tableLayoutPanel11.PerformLayout();
@@ -844,5 +916,9 @@
         private Label label15;
         private TabPage tabPage6;
         private RichTextBox logs;
+        private Label label16;
+        private TableLayoutPanel tableLayoutPanel13;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
     }
 }
