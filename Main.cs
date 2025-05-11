@@ -281,17 +281,16 @@ namespace GsDAutoClicker
 
         private void button4_Click( object sender, EventArgs e )
         {
-            // TODO - Implement location picker before this but not yet
-
-            //using (var locationPicker = new LocationPicker())
-            //{
-            //    if (locationPicker.ShowDialog() == DialogResult.OK)
-            //    {
-            //        clickLocation = locationPicker.SelectedLocation;
-            //        textBox1.Text = clickLocation.Value.X.ToString();
-            //        textBox2.Text = clickLocation.Value.Y.ToString();
-            //    }
-            //}
+            using (var locationPicker = new LocationPicker())
+            {
+                if (locationPicker.ShowDialog() == DialogResult.OK)
+                {
+                    clickLocation = locationPicker.SelectedLocation;
+                    textBox1.Text = clickLocation.Value.X.ToString();
+                    textBox2.Text = clickLocation.Value.Y.ToString();
+                    logString($"Location set to: {clickLocation.Value}");
+                }
+            }
         }
 
         protected override bool ProcessCmdKey( ref Message msg, Keys keyData )
