@@ -79,6 +79,8 @@
             tableLayoutPanel12 = new TableLayoutPanel();
             label14 = new Label();
             label15 = new Label();
+            tabPage6 = new TabPage();
+            logs = new RichTextBox();
             timer1 = new System.Windows.Forms.Timer( components );
             tabs.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -102,6 +104,7 @@
             tableLayoutPanel11.SuspendLayout();
             tabPage5.SuspendLayout();
             tableLayoutPanel12.SuspendLayout();
+            tabPage6.SuspendLayout();
             SuspendLayout();
             // 
             // tabs
@@ -111,6 +114,7 @@
             tabs.Controls.Add( tabPage3 );
             tabs.Controls.Add( tabPage4 );
             tabs.Controls.Add( tabPage5 );
+            tabs.Controls.Add( tabPage6 );
             tabs.Dock = DockStyle.Fill;
             tabs.Location = new Point( 0, 0 );
             tabs.Name = "tabs";
@@ -264,6 +268,7 @@
             numericUpDown5.Size = new Size( 66, 23 );
             numericUpDown5.TabIndex = 1;
             numericUpDown5.Value = new decimal( new int[] { 1, 0, 0, 0 } );
+            numericUpDown5.ValueChanged += numericUpDown5_ValueChanged;
             // 
             // radioButton2
             // 
@@ -410,6 +415,7 @@
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size( 75, 23 );
             numericUpDown1.TabIndex = 0;
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // numericUpDown2
             // 
@@ -418,6 +424,7 @@
             numericUpDown2.Name = "numericUpDown2";
             numericUpDown2.Size = new Size( 75, 23 );
             numericUpDown2.TabIndex = 1;
+            numericUpDown2.ValueChanged += numericUpDown2_ValueChanged;
             // 
             // numericUpDown3
             // 
@@ -427,6 +434,7 @@
             numericUpDown3.Size = new Size( 75, 23 );
             numericUpDown3.TabIndex = 2;
             numericUpDown3.Value = new decimal( new int[] { 1, 0, 0, 0 } );
+            numericUpDown3.ValueChanged += numericUpDown3_ValueChanged;
             // 
             // numericUpDown4
             // 
@@ -436,6 +444,7 @@
             numericUpDown4.Size = new Size( 75, 23 );
             numericUpDown4.TabIndex = 3;
             numericUpDown4.Value = new decimal( new int[] { 100, 0, 0, 0 } );
+            numericUpDown4.ValueChanged += numericUpDown4_ValueChanged;
             // 
             // label2
             // 
@@ -668,9 +677,8 @@
             // 
             // tableLayoutPanel12
             // 
-            tableLayoutPanel12.ColumnCount = 2;
+            tableLayoutPanel12.ColumnCount = 1;
             tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 30F ) );
-            tableLayoutPanel12.ColumnStyles.Add( new ColumnStyle( SizeType.Percent, 70F ) );
             tableLayoutPanel12.Controls.Add( label14, 0, 0 );
             tableLayoutPanel12.Controls.Add( label15, 0, 1 );
             tableLayoutPanel12.Dock = DockStyle.Fill;
@@ -687,7 +695,7 @@
             // 
             label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
-            label14.Location = new Point( 28, 7 );
+            label14.Location = new Point( 147, 7 );
             label14.Name = "label14";
             label14.Size = new Size( 45, 15 );
             label14.TabIndex = 0;
@@ -697,11 +705,32 @@
             // 
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
-            label15.Location = new Point( 28, 37 );
+            label15.Location = new Point( 147, 37 );
             label15.Name = "label15";
             label15.Size = new Size( 44, 15 );
             label15.TabIndex = 1;
             label15.Text = "Author";
+            // 
+            // tabPage6
+            // 
+            tabPage6.Controls.Add( logs );
+            tabPage6.Location = new Point( 4, 24 );
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding( 3 );
+            tabPage6.Size = new Size( 345, 306 );
+            tabPage6.TabIndex = 5;
+            tabPage6.Text = "Logs";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // logs
+            // 
+            logs.Dock = DockStyle.Fill;
+            logs.Location = new Point( 3, 3 );
+            logs.Name = "logs";
+            logs.ReadOnly = true;
+            logs.Size = new Size( 339, 300 );
+            logs.TabIndex = 0;
+            logs.Text = "Init";
             // 
             // timer1
             // 
@@ -756,6 +785,7 @@
             tabPage5.ResumeLayout( false );
             tableLayoutPanel12.ResumeLayout( false );
             tableLayoutPanel12.PerformLayout();
+            tabPage6.ResumeLayout( false );
             ResumeLayout( false );
         }
 
@@ -812,5 +842,7 @@
         private TableLayoutPanel tableLayoutPanel12;
         private Label label14;
         private Label label15;
+        private TabPage tabPage6;
+        private RichTextBox logs;
     }
 }

@@ -12,7 +12,7 @@ namespace GsDAutoClicker
         public static Config config = new();
         public static BigInteger Clicks = 0;
         [STAThread]
-        static void Main()
+        static void Main( string[] args)
         {
             ApplicationConfiguration.Initialize();
 

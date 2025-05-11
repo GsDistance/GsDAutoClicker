@@ -13,9 +13,20 @@ namespace GsDAutoClicker
         private static CancellationTokenSource clickerCancellationTokenSource = new();
         public static Keys hotkey = Keys.None;
         private Point? clickLocation = null;
+        private bool isRunning = false;
 
         [DllImport("user32.dll")]
         private static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, int dwExtraInfo);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        private const int HOTKEY_ID = 1; // Unique ID for the hotkey
+        private const uint MOD_NONE = 0x0000; // No modifier
+        private const uint WM_HOTKEY = 0x0312; // Hotkey message
 
         private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
         private const uint MOUSEEVENTF_LEFTUP = 0x0004;
@@ -29,8 +40,25 @@ namespace GsDAutoClicker
             InitializeComponent();
         }
 
+        public void logString(string str, string level = "Info")
+        {
+            string log = $"[{DateTime.Now} / {level}]: {str}";
+            if (InvokeRequired)
+            {
+                Invoke( new Action( () => logString( str, level ) ) );
+            }
+            else
+            {
+                logs.AppendText( log + Environment.NewLine );
+                logs.SelectionStart = logs.Text.Length;
+                logs.ScrollToCaret();
+            }
+        }
+
         public void Clicker()
         {
+            logString( "Clicker starting" );
+            isRunning = true;
             var token = clickerCancellationTokenSource.Token;
             decimal repeats = Math.Round(numericUpDown5.Value);
             string clickType;
@@ -54,10 +82,19 @@ namespace GsDAutoClicker
             Stopwatch stopwatch = new();
             bool isNotInfinite = radioButton1.Checked;
 
+            logString( "Clicker started" + Environment.NewLine +
+                "Click Type: " + clickType + Environment.NewLine +
+                "Click Mode: " + clickMode + Environment.NewLine +
+                "Repeats: " + repeats + Environment.NewLine +
+                "Interval: " + GetInterval() + Environment.NewLine +
+                "Click Location: " + (clickLocation.HasValue ? clickLocation.Value.ToString() : "Current Cursor Position") );
+
             while (true)
             {
                 if (token.IsCancellationRequested)
                 {
+                    logString( "Clicker exited" );
+                    isRunning = false;
                     break; // Exit the loop if cancellation is requested
                 }
 
@@ -65,7 +102,9 @@ namespace GsDAutoClicker
                 stopwatch.Start();
                 if (repeats < 1 && isNotInfinite)
                 {
+                    logString( "Clicker exiting, repeats is 0" );
                     StopClicker(); // Stop the clicker if repeats is 0
+                    isRunning = false;
                     break; // Exit the loop
                 }
 
@@ -123,10 +162,17 @@ namespace GsDAutoClicker
 
         private void Main_Load(object sender, EventArgs e)
         {
+            logString( "Loading form" );
             label14.Text = "Version: " + Application.ProductVersion;
             label15.Text = "Author: " + Application.CompanyName;
-            comboBox1.SelectedItem = "Left";
-            comboBox2.SelectedItem = "Single";
+            comboBox1.SelectedItem = config.clickType;
+            comboBox2.SelectedItem = config.clickMode;
+            numericUpDown1.Value = config.interval1;
+            numericUpDown2.Value = config.interval2;
+            numericUpDown3.Value = config.interval3;
+            numericUpDown4.Value = config.interval4;
+            numericUpDown5.Value = config.repeats;
+            logString( "Application started" );
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -156,6 +202,8 @@ namespace GsDAutoClicker
             {
                 if (clicker == null || !clicker.IsAlive)
                 {
+                    logString( "Starting clicker" );
+                    clickerCancellationTokenSource = new(); // Create a new CancellationTokenSource
                     clicker = new(Clicker);
                     clicker.Start();
                 }
@@ -165,6 +213,7 @@ namespace GsDAutoClicker
 
         public void StopClicker()
         {
+            logString( "Stopping clicker" );
             if (InvokeRequired)
             {
                 Invoke(new Action(() => button2_Click(null, null)));
@@ -192,7 +241,9 @@ namespace GsDAutoClicker
                 if (hotkeyForm.ShowDialog() == DialogResult.OK)
                 {
                     hotkey = hotkeyForm.SelectedHotkey;
+                    logString( "Hotkey set to: " + hotkey.ToString() );
                     button3.Text = "Set Hotkey (" + hotkey.ToString() + ")";
+                    RegisterGlobalHotKey(hotkey); // Register the new hotkey
                 }
             }
         }
@@ -229,10 +280,44 @@ namespace GsDAutoClicker
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_HOTKEY && m.WParam.ToInt32() == HOTKEY_ID)
+            {
+                if (isRunning)
+                {
+                    StopClicker(); // Stop the clicker if it's running
+                }
+                else
+                {
+                    button1_Click(null, null); // Start the clicker
+                }
+            }
+            base.WndProc(ref m);
+        }
+
+        private void RegisterGlobalHotKey(Keys key)
+        {
+            UnregisterGlobalHotKey(); // Unregister any existing hotkey
+            if (key != Keys.None)
+            {
+                logString( "Registering hotkey: " + key.ToString() );
+                RegisterHotKey(Handle, HOTKEY_ID, MOD_NONE, (uint)key);
+            }
+        }
+
+        private void UnregisterGlobalHotKey()
+        {
+            logString( "Unregistering hotkey" );
+            UnregisterHotKey(Handle, HOTKEY_ID);
+        }
+
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            logString( "Application closing" );
             StopClicker(); // Stop the clicker if it's running
             clickerCancellationTokenSource.Cancel(); // Ensure the thread exits
+            UnregisterGlobalHotKey(); // Unregister the hotkey
             string json = JsonSerializer.Serialize(config);
             File.WriteAllText("config.json", json);
             File.WriteAllText("clicks", Clicks.ToString());
@@ -275,6 +360,31 @@ namespace GsDAutoClicker
             {
                 clickLocation = null;
             }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            config.interval1 = numericUpDown1.Value;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            config.interval2 = numericUpDown2.Value;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            config.interval3 = numericUpDown3.Value;
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            config.interval4 = numericUpDown4.Value;
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            config.repeats = numericUpDown5.Value;
         }
     }
 }
